@@ -310,129 +310,120 @@ export default function SokobanGame({ levels }: SokobanGameProps) {
           gap: 24,
         }}
       >
-        {isCompleted && currentLevelIndex < levels.length - 1 && (
-          <Pressable
-            onPress={nextLevel}
-            style={({ pressed }) => ({
-              backgroundColor: systemGreen as string,
-              paddingVertical: 16,
-              paddingHorizontal: 32,
-              borderRadius: 12,
-              borderCurve: "continuous",
-              opacity: pressed ? 0.7 : 1,
-              marginBottom: 16,
-            })}
-          >
-            <Text
-              style={{
-                color: "white",
-                fontSize: 18,
-                fontWeight: "bold",
-              }}
+        {!isCompleted && (
+          <View style={{ gap: 16, alignItems: "center" }}>
+            <Pressable
+              onPress={() => move("up")}
+              style={({ pressed }) => ({
+                backgroundColor: systemBlue as string,
+                width: 80,
+                height: 80,
+                borderRadius: 40,
+                justifyContent: "center",
+                alignItems: "center",
+                opacity: pressed ? 0.7 : 1,
+              })}
             >
-              Next Level →
-            </Text>
-          </Pressable>
-        )}
+              <Text style={{ fontSize: 32, color: "white" }}>↑</Text>
+            </Pressable>
 
-        {isCompleted && currentLevelIndex === levels.length - 1 && (
-          <View
-            style={{
-              backgroundColor: systemYellow as string,
-              padding: 16,
-              borderRadius: 12,
-              borderCurve: "continuous",
-              marginBottom: 16,
-            }}
-          >
-            <Text
-              style={{
-                fontSize: 18,
-                fontWeight: "bold",
-                color: "white",
-                textAlign: "center",
-              }}
-            >
-              All Levels Complete! 🏆
-            </Text>
+            <View style={{ flexDirection: "row", gap: 16 }}>
+              <Pressable
+                onPress={() => move("left")}
+                style={({ pressed }) => ({
+                  backgroundColor: systemBlue as string,
+                  width: 80,
+                  height: 80,
+                  borderRadius: 40,
+                  justifyContent: "center",
+                  alignItems: "center",
+                  opacity: pressed ? 0.7 : 1,
+                })}
+              >
+                <Text style={{ fontSize: 32, color: "white" }}>←</Text>
+              </Pressable>
+
+              <Pressable
+                onPress={() => move("down")}
+                style={({ pressed }) => ({
+                  backgroundColor: systemBlue as string,
+                  width: 80,
+                  height: 80,
+                  borderRadius: 40,
+                  justifyContent: "center",
+                  alignItems: "center",
+                  opacity: pressed ? 0.7 : 1,
+                })}
+              >
+                <Text style={{ fontSize: 32, color: "white" }}>↓</Text>
+              </Pressable>
+
+              <Pressable
+                onPress={() => move("right")}
+                style={({ pressed }) => ({
+                  backgroundColor: systemBlue as string,
+                  width: 80,
+                  height: 80,
+                  borderRadius: 40,
+                  justifyContent: "center",
+                  alignItems: "center",
+                  opacity: pressed ? 0.7 : 1,
+                })}
+              >
+                <Text style={{ fontSize: 32, color: "white" }}>→</Text>
+              </Pressable>
+            </View>
           </View>
         )}
 
-        <View style={{ gap: 16, alignItems: "center" }}>
-          <Pressable
-            onPress={() => move("up")}
-            disabled={isCompleted}
-            style={({ pressed }) => ({
-              backgroundColor: isCompleted
-                ? (systemGray as string)
-                : (systemBlue as string),
-              width: 80,
-              height: 80,
-              borderRadius: 40,
-              justifyContent: "center",
-              alignItems: "center",
-              opacity: pressed ? 0.7 : 1,
-            })}
-          >
-            <Text style={{ fontSize: 32, color: "white" }}>↑</Text>
-          </Pressable>
-
-          <View style={{ flexDirection: "row", gap: 16 }}>
-            <Pressable
-              onPress={() => move("left")}
-              disabled={isCompleted}
-              style={({ pressed }) => ({
-                backgroundColor: isCompleted
-                  ? (systemGray as string)
-                  : (systemBlue as string),
-                width: 80,
-                height: 80,
-                borderRadius: 40,
-                justifyContent: "center",
-                alignItems: "center",
-                opacity: pressed ? 0.7 : 1,
-              })}
-            >
-              <Text style={{ fontSize: 32, color: "white" }}>←</Text>
-            </Pressable>
-
-            <Pressable
-              onPress={() => move("down")}
-              disabled={isCompleted}
-              style={({ pressed }) => ({
-                backgroundColor: isCompleted
-                  ? (systemGray as string)
-                  : (systemBlue as string),
-                width: 80,
-                height: 80,
-                borderRadius: 40,
-                justifyContent: "center",
-                alignItems: "center",
-                opacity: pressed ? 0.7 : 1,
-              })}
-            >
-              <Text style={{ fontSize: 32, color: "white" }}>↓</Text>
-            </Pressable>
-
-            <Pressable
-              onPress={() => move("right")}
-              disabled={isCompleted}
-              style={({ pressed }) => ({
-                backgroundColor: isCompleted
-                  ? (systemGray as string)
-                  : (systemBlue as string),
-                width: 80,
-                height: 80,
-                borderRadius: 40,
-                justifyContent: "center",
-                alignItems: "center",
-                opacity: pressed ? 0.7 : 1,
-              })}
-            >
-              <Text style={{ fontSize: 32, color: "white" }}>→</Text>
-            </Pressable>
+        {isCompleted && (
+          <View style={{ gap: 16, alignItems: "center" }}>
+            {currentLevelIndex < levels.length - 1 ? (
+              <Pressable
+                onPress={nextLevel}
+                style={({ pressed }) => ({
+                  backgroundColor: systemGreen as string,
+                  paddingVertical: 20,
+                  paddingHorizontal: 40,
+                  borderRadius: 12,
+                  borderCurve: "continuous",
+                  opacity: pressed ? 0.7 : 1,
+                })}
+              >
+                <Text
+                  style={{
+                    color: "white",
+                    fontSize: 20,
+                    fontWeight: "bold",
+                  }}
+                >
+                  Next Level →
+                </Text>
+              </Pressable>
+            ) : (
+              <View
+                style={{
+                  backgroundColor: systemYellow as string,
+                  paddingVertical: 20,
+                  paddingHorizontal: 40,
+                  borderRadius: 12,
+                  borderCurve: "continuous",
+                }}
+              >
+                <Text
+                  style={{
+                    fontSize: 20,
+                    fontWeight: "bold",
+                    color: "white",
+                    textAlign: "center",
+                  }}
+                >
+                  All Levels Complete! 🏆
+                </Text>
+              </View>
+            )}
           </View>
-        </View>
+        )}
       </View>
     </View>
   );
