@@ -185,6 +185,43 @@ export default function SokobanGame({ levels }: SokobanGameProps) {
     return null;
   };
 
+  const tryPushBox = (boxRow: number, boxCol: number): boolean => {
+    const player = findPlayer();
+    if (!player) return false;
+
+    const rowDiff = boxRow - player.row;
+    const colDiff = boxCol - player.col;
+
+    if (Math.abs(rowDiff) + Math.abs(colDiff) !== 1) {
+      return false;
+    }
+
+    const boxNewRow = boxRow + rowDiff;
+    const boxNewCol = boxCol + colDiff;
+
+    if (
+      boxNewRow < 0 ||
+      boxNewRow >= grid.length ||
+      boxNewCol < 0 ||
+      boxNewCol >= grid[0].length
+    ) {
+      return false;
+    }
+
+    const boxTargetCell = grid[boxNewRow][boxNewCol];
+    if (boxTargetCell !== " " && boxTargetCell !== "T") {
+      return false;
+    }
+
+    let direction: "up" | "down" | "left" | "right";
+    if (rowDiff === -1) direction = "up";
+    else if (rowDiff === 1) direction = "down";
+    else if (colDiff === -1) direction = "left";
+    else direction = "right";
+
+    return move(direction);
+  };
+
   const moveToCell = (targetRow: number, targetCol: number) => {
     if (isCompleted) return;
 
@@ -192,6 +229,12 @@ export default function SokobanGame({ levels }: SokobanGameProps) {
     if (!player) return;
 
     const targetCell = grid[targetRow][targetCol];
+
+    if (targetCell === "B" || targetCell === "X") {
+      tryPushBox(targetRow, targetCol);
+      return;
+    }
+
     if (targetCell !== " " && targetCell !== "T") {
       return;
     }
