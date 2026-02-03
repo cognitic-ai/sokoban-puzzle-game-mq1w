@@ -1,15 +1,11 @@
-import { ScrollView, Text } from "react-native";
+import { View } from "react-native";
+import SokobanGame from "@/components/sokoban-game";
+import levelsData from "../../levels.json";
 
 export default function IndexRoute() {
   return (
-    <ScrollView
-      contentInsetAdjustmentBehavior="automatic"
-      style={{
-        padding: 16,
-        backgroundColor: "white",
-      }}
-    >
-      <Text>Hello world</Text>
-    </ScrollView>
+    <View style={{ flex: 1 }}>
+      <SokobanGame levels={levelsData.levels} />
+    </View>
   );
 }
